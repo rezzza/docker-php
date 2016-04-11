@@ -2,6 +2,8 @@ FROM php:7-fpm-alpine
 
 MAINTAINER Sébastien HOUZÉ <sebastien.houze@verylastroom.com>
 
+ENV PHP_EXTRA_CONFIGURE_ARGS --enable-fpm --with-fpm-user=www-data --with-fpm-group=www-data --enable-bcmath
+
 RUN printf "\
 date.timezone=\"UTC\"\n\
 request_order=GP\n\
