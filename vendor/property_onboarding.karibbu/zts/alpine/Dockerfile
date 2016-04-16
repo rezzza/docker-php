@@ -16,7 +16,7 @@ opcache.enable_file_override=1\n\
 opcache.log_verbosity_level=0\n\
 opcache.fast_shutdown=1\n\
 " >> /usr/local/etc/php/conf.d/00-opcache.ini \
-    && apk add --no-cache zlib-dev icu-dev \
+    && apk add --no-cache zlib-dev icu-dev libev \
     && docker-php-ext-install \
         intl \
         curl \
@@ -28,6 +28,7 @@ opcache.fast_shutdown=1\n\
     && curl -sL https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     && pear config-set preferred_state beta \
     && printf "\n" | pecl install apcu_bc \
+    && printf "\n" | pecl install ev-beta \
     && docker-php-ext-enable --ini-name 01-apc.ini apcu apc \
     && rm -rf \
         ~/.composer \
