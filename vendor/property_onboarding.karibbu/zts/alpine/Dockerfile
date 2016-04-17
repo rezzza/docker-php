@@ -26,10 +26,7 @@ opcache.fast_shutdown=1\n\
         bcmath \
     && apk add --no-cache git \
     && curl -sL https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
-    && pear config-set preferred_state beta \
-    && printf "\n" | pecl install apcu_bc \
     && printf "\n" | pecl install ev-beta \
-    && docker-php-ext-enable --ini-name 01-apc.ini apcu apc \
     && rm -rf \
         ~/.composer \
         /tmp/* \
