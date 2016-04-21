@@ -26,6 +26,7 @@ opcache.fast_shutdown=1\n\
         bcmath \
     && apk add --no-cache git \
     && curl -sL https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+    && docker-php-ext-enable pcntl \
     && printf "\n" | pecl install ev-beta \
     && pecl install inotify \
     && rm -rf \
