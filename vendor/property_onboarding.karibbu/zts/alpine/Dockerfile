@@ -27,9 +27,10 @@ opcache.fast_shutdown=1\n\
     && apk add --no-cache git \
     && curl -sL https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     && printf "\n" | pecl install ev-beta \
-    && docker-php-ext-enable ev \
+    && pecl install inotify \
     && rm -rf \
         ~/.composer \
+        /usr/src \
         /tmp/* \
         /usr/share/doc \
         /usr/share/man \
