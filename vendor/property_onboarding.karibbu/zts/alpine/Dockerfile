@@ -24,6 +24,7 @@ opcache.fast_shutdown=1\n\
         mbstring \
         zip \
         bcmath \
+        pcntl \
     && apk add --no-cache git \
     && curl -sL https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     && printf "\n" | pecl install ev-beta \
