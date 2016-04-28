@@ -34,8 +34,7 @@ opcache.fast_shutdown=1\n\
     && docker-php-ext-enable --ini-name 100-inotify.ini inotify.so \
     && apk add --no-cache bash python --virtual .librdkafka-build-deps \
     && cd /tmp \
-    && curl -SL
-    https://github.com/edenhill/librdkafka/archive/confluent-debian-${LIB_RDKAFKA_VERSION}.tar.gz -o librdkafka-${LIB_RDKAFKA_VERSION}.tgz \
+    && curl -SL https://github.com/edenhill/librdkafka/archive/confluent-debian-${LIB_RDKAFKA_VERSION}.tar.gz -o librdkafka-${LIB_RDKAFKA_VERSION}.tgz \
     && tar xvzpf librdkafka-${LIB_RDKAFKA_VERSION}.tgz \
     && cd librdkafka-confluent-debian-${LIB_RDKAFKA_VERSION} \
     && ./configure \
