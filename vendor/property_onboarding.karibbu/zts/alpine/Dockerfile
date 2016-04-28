@@ -2,6 +2,8 @@ FROM php:7-zts-alpine
 
 MAINTAINER Sébastien HOUZÉ <sebastien.houze@verylastroom.com>
 
+ENV LIB_RDKAFKA_VERSION=0.9.0.99
+
 RUN printf "\
 date.timezone=\"UTC\"\n\
 request_order=GP\n\
@@ -30,6 +32,23 @@ opcache.fast_shutdown=1\n\
     && printf "\n" | pecl install ev-beta \
     && pecl install inotify \
     && docker-php-ext-enable --ini-name 100-inotify.ini inotify.so \
+    apk add --no-cache bash python --virtual .librdkafka-build-deps \
+    && cd /tmp \
+    && curl -SL
+    https://github.com/edenhill/librdkafka/archive/confluent-debian-${LIB_RDKAFKA_VERSION}.tar.gz -o librdkafka-${LIB_RDKAFKA_VERSION}.tgz \
+    && tar xvzpf librdkafka-${LIB_RDKAFKA_VERSION}.tgz \
+    && cd librdkafka-confluent-debian-${LIB_RDKAFKA_VERSION} \
+    && ./configure \
+    && make -j"$(getconf _NPROCESSORS_ONLN)" \
+    && make install \
+    && git clone --depth=1 -b php7 https://github.com/arnaud-lb/php-rdkafka.git /tmp/php-rdkafka \
+    && cd /tmp/php-rdkafka \
+    && phpize \
+    && ./configure \
+    && make -j"$(getconf _NPROCESSORS_ONLN)" \
+    && make install \
+    && docker-php-ext-enable rdkafka \
+    && apk del --no-cache --virtual .librdkafka-build-deps \
     && rm -rf \
         ~/.composer \
         /usr/src \
