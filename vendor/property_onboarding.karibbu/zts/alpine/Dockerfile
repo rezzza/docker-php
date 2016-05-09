@@ -48,6 +48,12 @@ opcache.fast_shutdown=1\n\
     && make install \
     && docker-php-ext-enable rdkafka \
     && apk del --no-cache --virtual .librdkafka-build-deps \
+    && git clone --depth=1 https://github.com/php-ds/extension /tmp/php-ds \
+    && cd /tmp/php-ds \
+    && phpize \
+    && make -j"$(getconf _NPROCESSORS_ONLN)" \
+    && make install \
+    && docker-php-ext-enable ds \    
     && rm -rf \
         ~/.composer \
         /usr/src \
