@@ -51,6 +51,7 @@ opcache.fast_shutdown=1\n\
     && git clone --depth=1 https://github.com/php-ds/extension /tmp/php-ds \
     && cd /tmp/php-ds \
     && phpize \
+    && ./configure \
     && make -j"$(getconf _NPROCESSORS_ONLN)" \
     && make install \
     && docker-php-ext-enable ds \    
