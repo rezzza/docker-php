@@ -29,6 +29,7 @@ opcache.fast_shutdown=1\n\
         pcntl \
     && apk add --no-cache git \
     && curl -sL https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+    && composer global require hirak/prestissimo \
     && printf "\n" | pecl install ev-beta \
     && pecl install inotify \
     && docker-php-ext-enable --ini-name 100-inotify.ini inotify.so \
