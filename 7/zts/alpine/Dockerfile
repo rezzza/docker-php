@@ -27,6 +27,7 @@ opcache.fast_shutdown=1\n\
         bcmath \
     && apk add --no-cache git \
     && curl -sL https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+    && composer global require hirak/prestissimo \
     && mkdir -p ~/src \
     && git clone https://github.com/FriendsOfPHP/pickle.git ~/src/pickle \
     && cd ~/src/pickle \
