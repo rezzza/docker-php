@@ -47,7 +47,7 @@ opcache.fast_shutdown=1\n\
     && pickle install --defaults ~/src/phpredis \
     && docker-php-ext-enable --ini-name 02-redis.ini redis \
     && rm -rf \
-        ~/.composer \
+        ~/.composer/cache \
         ~/src/* \
         /tmp/* \
         /usr/share/doc \

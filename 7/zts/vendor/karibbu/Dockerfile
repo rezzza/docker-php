@@ -57,7 +57,7 @@ opcache.fast_shutdown=1\n\
     && make install \
     && docker-php-ext-enable ds \    
     && rm -rf \
-        ~/.composer \
+        ~/.composer/cache \
         /usr/src \
         /tmp/* \
         /usr/share/doc \
