@@ -26,6 +26,7 @@ opcache.fast_shutdown=1\n\
         zip \
         bcmath \
     && apk add --no-cache git \
+    && apk add --no-cache --virtual .phpize-deps $PHPIZE_DEPS \
     && curl -sL https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     && composer global require hirak/prestissimo \
     && mkdir -p ~/src \
@@ -46,6 +47,7 @@ opcache.fast_shutdown=1\n\
     && sed -i -e 's/2.2.8-devphp7/2.2.7/' php_redis.h \
     && pickle install --defaults ~/src/phpredis \
     && docker-php-ext-enable --ini-name 02-redis.ini redis \
+    && apk del .phpize-deps \
     && rm -rf \
         ~/.composer/cache \
         ~/src/* \

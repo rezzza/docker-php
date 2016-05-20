@@ -28,6 +28,7 @@ opcache.fast_shutdown=1\n\
         bcmath \
         pcntl \
     && apk add --no-cache git \
+    && apk add --no-cache --virtual .phpize-deps $PHPIZE_DEPS \
     && curl -sL https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     && composer global require hirak/prestissimo \
     && printf "\n" | pecl install ev-beta \
@@ -56,6 +57,7 @@ opcache.fast_shutdown=1\n\
     && make -j"$(getconf _NPROCESSORS_ONLN)" \
     && make install \
     && docker-php-ext-enable ds \    
+    && apk del .phpize-deps \
     && rm -rf \
         ~/.composer/cache \
         /usr/src \
