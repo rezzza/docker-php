@@ -2,7 +2,7 @@ FROM php:7-zts-alpine
 
 MAINTAINER Sébastien HOUZÉ <sebastien.houze@verylastroom.com>
 
-ENV LIB_RDKAFKA_VERSION=0.9.0.99
+ENV LIB_RDKAFKA_VERSION=0.9.1
 
 RUN printf "\
 date.timezone=\"UTC\"\n\
@@ -12,6 +12,7 @@ enable_dl=Off\n\
 short_open_tag=Off\n\
 " > /usr/local/etc/php/php.ini \
     && docker-php-ext-enable --ini-name 00-opcache.ini opcache \
+    && sed -i -e 's/extension=/zend_extension=/' /usr/local/etc/php/conf.d/00-opcache.ini \
     && printf "\
 opcache.max_accelerated_files=16229\n\
 opcache.enable_file_override=1\n\
@@ -34,7 +35,7 @@ opcache.fast_shutdown=1\n\
     && printf "\n" | pecl install ev-beta \
     && pecl install inotify \
     && docker-php-ext-enable --ini-name 100-inotify.ini inotify.so \
-    && apk add --no-cache bash python --virtual .librdkafka-build-deps \
+    && apk add --no-cache --virtual .librdkafka-build-deps bash python \
     && cd /tmp \
     && curl -SL https://github.com/edenhill/librdkafka/archive/confluent-debian-${LIB_RDKAFKA_VERSION}.tar.gz -o librdkafka-${LIB_RDKAFKA_VERSION}.tgz \
     && tar xvzpf librdkafka-${LIB_RDKAFKA_VERSION}.tgz \
@@ -49,7 +50,7 @@ opcache.fast_shutdown=1\n\
     && make -j"$(getconf _NPROCESSORS_ONLN)" \
     && make install \
     && docker-php-ext-enable rdkafka \
-    && apk del --no-cache --virtual .librdkafka-build-deps \
+    && apk del --no-cache .librdkafka-build-deps \
     && git clone --depth=1 https://github.com/php-ds/extension /tmp/php-ds \
     && cd /tmp/php-ds \
     && phpize \
@@ -57,7 +58,7 @@ opcache.fast_shutdown=1\n\
     && make -j"$(getconf _NPROCESSORS_ONLN)" \
     && make install \
     && docker-php-ext-enable ds \    
-    && apk del .phpize-deps \
+    && apk del --no-cache .phpize-deps \
     && rm -rf \
         ~/.composer/cache \
         /usr/src \

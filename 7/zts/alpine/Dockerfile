@@ -10,6 +10,7 @@ enable_dl=Off\n\
 short_open_tag=Off\n\
 " > /usr/local/etc/php/php.ini \
     && docker-php-ext-enable --ini-name 00-opcache.ini opcache \
+    && sed -i -e 's/extension=/zend_extension=/' /usr/local/etc/php/conf.d/00-opcache.ini \
     && printf "\
 opcache.max_accelerated_files=16229\n\
 opcache.enable_file_override=1\n\
@@ -47,7 +48,7 @@ opcache.fast_shutdown=1\n\
     && sed -i -e 's/2.2.8-devphp7/2.2.7/' php_redis.h \
     && pickle install --defaults ~/src/phpredis \
     && docker-php-ext-enable --ini-name 02-redis.ini redis \
-    && apk del .phpize-deps \
+    && apk del --no-cache .phpize-deps \
     && rm -rf \
         ~/.composer/cache \
         ~/src/* \
