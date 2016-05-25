@@ -49,6 +49,9 @@ opcache.fast_shutdown=1\n\
     && pickle install --defaults ~/src/phpredis \
     && docker-php-ext-enable --ini-name 02-redis.ini redis \
     && apk del --no-cache .phpize-deps \
+    && apk del --no-cache zlib-dev icu-dev \
+    && apk add --no-cache icu \
+    && php -m \
     && rm -rf \
         ~/.composer/cache \
         ~/src/* \

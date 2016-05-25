@@ -59,6 +59,9 @@ opcache.fast_shutdown=1\n\
     && make install \
     && docker-php-ext-enable ds \    
     && apk del --no-cache .phpize-deps \
+    && apk del --no-cache zlib-dev icu-dev \
+    && apk add --no-cache icu \
+    && php -m \
     && rm -rf \
         ~/.composer/cache \
         /usr/src \
