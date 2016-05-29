@@ -75,4 +75,6 @@ opcache.fast_shutdown=1\n\
 
 USER daemon
 
+WORKDIR /app
+
 CMD ["php", "-a"]
