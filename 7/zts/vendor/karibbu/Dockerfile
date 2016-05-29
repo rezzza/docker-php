@@ -71,4 +71,6 @@ opcache.fast_shutdown=1\n\
         /usr/share/doc \
         /var/cache/apk/*
 
+USER daemon
+
 CMD ["php", "-a"]
