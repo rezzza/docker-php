@@ -69,7 +69,7 @@ opcache.fast_shutdown=1\n\
         /usr/share/doc \
         /usr/share/man \
         /usr/share/doc \
-        /var/cache/apk/*
+        /var/cache/apk/* \
     && mkdir -p /app /var/app \
     && chown daemon /app /var/app
 
