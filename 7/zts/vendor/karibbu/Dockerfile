@@ -57,7 +57,13 @@ opcache.fast_shutdown=1\n\
     && ./configure \
     && make -j"$(getconf _NPROCESSORS_ONLN)" \
     && make install \
-    && docker-php-ext-enable ds \    
+    && docker-php-ext-enable ds \  
+    && git clone --branch php7 https://github.com/phpredis/phpredis.git ~/src/phpredis \
+    && cd ~/src/phpredis \
+    && git reset --hard 2887ad1130aba5aee029a64140d111544e62d56d \
+    && sed -i -e 's/2.2.8-devphp7/2.2.7/' php_redis.h \
+    && pickle install --defaults ~/src/phpredis \
+    && docker-php-ext-enable --ini-name 02-redis.ini redis \
     && apk del --no-cache .phpize-deps \
     && apk del --no-cache zlib-dev icu-dev \
     && apk add --no-cache icu \
