@@ -35,6 +35,8 @@ opcache.fast_shutdown=1\n\
     && printf "\n" | pecl install ev-beta \
     && pecl install inotify \
     && docker-php-ext-enable --ini-name 100-inotify.ini inotify.so \
+    && pecl install redis \
+    && docker-php-ext-enable --ini-name 100-redis.ini redis.so \
     && apk add --no-cache --virtual .librdkafka-build-deps bash python \
     && cd /tmp \
     && curl -SL https://github.com/edenhill/librdkafka/archive/confluent-debian-${LIB_RDKAFKA_VERSION}.tar.gz -o librdkafka-${LIB_RDKAFKA_VERSION}.tgz \
