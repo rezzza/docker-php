@@ -2,8 +2,6 @@ FROM php:7-zts-alpine
 
 MAINTAINER Sébastien HOUZÉ <sebastien.houze@verylastroom.com>
 
-ENV LIB_RDKAFKA_VERSION=0.9.1
-
 RUN printf "\
 date.timezone=\"UTC\"\n\
 request_order=GP\n\
@@ -28,6 +26,7 @@ opcache.fast_shutdown=1\n\
         zip \
         bcmath \
         pcntl \
+    && docker-php-source extract \
     && apk add --no-cache git \
     && apk add --no-cache --virtual .phpize-deps $PHPIZE_DEPS \
     && curl -sL https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
@@ -37,22 +36,6 @@ opcache.fast_shutdown=1\n\
     && docker-php-ext-enable --ini-name 100-inotify.ini inotify.so \
     && pecl install redis \
     && docker-php-ext-enable --ini-name 100-redis.ini redis.so \
-    && apk add --no-cache --virtual .librdkafka-build-deps bash python \
-    && cd /tmp \
-    && curl -SL https://github.com/edenhill/librdkafka/archive/confluent-debian-${LIB_RDKAFKA_VERSION}.tar.gz -o librdkafka-${LIB_RDKAFKA_VERSION}.tgz \
-    && tar xvzpf librdkafka-${LIB_RDKAFKA_VERSION}.tgz \
-    && cd librdkafka-confluent-debian-${LIB_RDKAFKA_VERSION} \
-    && ./configure \
-    && make -j"$(getconf _NPROCESSORS_ONLN)" \
-    && make install \
-    && git clone --depth=1 -b php7 https://github.com/arnaud-lb/php-rdkafka.git /tmp/php-rdkafka \
-    && cd /tmp/php-rdkafka \
-    && phpize \
-    && ./configure \
-    && make -j"$(getconf _NPROCESSORS_ONLN)" \
-    && make install \
-    && docker-php-ext-enable rdkafka \
-    && apk del --no-cache .librdkafka-build-deps \
     && git clone --depth=1 https://github.com/php-ds/extension /tmp/php-ds \
     && cd /tmp/php-ds \
     && phpize \
@@ -63,6 +46,7 @@ opcache.fast_shutdown=1\n\
     && apk del --no-cache .phpize-deps \
     && apk del --no-cache zlib-dev icu-dev \
     && apk add --no-cache icu \
+    && docker-php-source delete \
     && php -m \
     && rm -rf \
         ~/.composer/cache \
