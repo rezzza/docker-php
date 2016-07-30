@@ -33,16 +33,11 @@ opcache.fast_shutdown=1\n\
     && composer global require hirak/prestissimo \
     && printf "\n" | pecl install ev-beta \
     && pecl install inotify \
-    && docker-php-ext-enable --ini-name 100-inotify.ini inotify.so \
+    && docker-php-ext-enable --ini-name 100-inotify.ini inotify \
     && pecl install redis \
-    && docker-php-ext-enable --ini-name 100-redis.ini redis.so \
-    && git clone --depth=1 https://github.com/php-ds/extension /tmp/php-ds \
-    && cd /tmp/php-ds \
-    && phpize \
-    && ./configure \
-    && make -j"$(getconf _NPROCESSORS_ONLN)" \
-    && make install \
-    && docker-php-ext-enable ds \    
+    && docker-php-ext-enable --ini-name 100-redis.ini redis \
+    && pecl install ds \
+    && docker-php-ext-enable --ini-name 100-ds.ini ds \    
     && apk del --no-cache .phpize-deps \
     && apk del --no-cache zlib-dev icu-dev \
     && apk add --no-cache icu \
