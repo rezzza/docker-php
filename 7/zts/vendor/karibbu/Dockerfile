@@ -36,7 +36,7 @@ opcache.fast_shutdown=1\n\
     && docker-php-ext-enable --ini-name 100-inotify.ini inotify \
     && pecl install redis \
     && docker-php-ext-enable --ini-name 100-redis.ini redis \
-    && pecl install ds \
+    && pecl install ds-1.1.6 \
     && docker-php-ext-enable --ini-name 100-ds.ini ds \    
     && apk del --no-cache .phpize-deps \
     && apk del --no-cache zlib-dev icu-dev \
