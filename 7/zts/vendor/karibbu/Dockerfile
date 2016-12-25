@@ -17,7 +17,7 @@ opcache.enable_file_override=1\n\
 opcache.log_verbosity_level=0\n\
 opcache.fast_shutdown=1\n\
 " >> /usr/local/etc/php/conf.d/00-opcache.ini \
-    && apk add --no-cache zlib-dev icu-dev libev \
+    && apk add --no-cache zlib-dev icu-dev curl-dev binutils \
     && docker-php-ext-install \
         intl \
         curl \
@@ -33,13 +33,12 @@ opcache.fast_shutdown=1\n\
     && composer global require hirak/prestissimo \
     && printf "\n" | pecl install ev-beta \
     && pecl install inotify \
-    && docker-php-ext-enable --ini-name 100-inotify.ini inotify \
-    && pecl install redis \
+    && pecl install redis-3.1.0 \
     && docker-php-ext-enable --ini-name 100-redis.ini redis \
     && pecl install ds-1.1.6 \
-    && docker-php-ext-enable --ini-name 100-ds.ini ds \    
+    && docker-php-ext-enable --ini-name 100-ds.ini ds \
     && apk del --no-cache .phpize-deps \
-    && apk del --no-cache zlib-dev icu-dev \
+    && apk del --no-cache zlib-dev icu-dev curl-dev binutils \
     && apk add --no-cache icu \
     && docker-php-source delete \
     && php -m \
