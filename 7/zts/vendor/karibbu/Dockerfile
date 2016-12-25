@@ -1,4 +1,4 @@
-FROM php:7-zts-alpine
+FROM php:7.0-zts-alpine
 
 MAINTAINER Sébastien HOUZÉ <sebastien.houze@verylastroom.com>
 
