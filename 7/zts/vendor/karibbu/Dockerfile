@@ -31,6 +31,8 @@ opcache.fast_shutdown=1\n\
     && apk add --no-cache --virtual .phpize-deps $PHPIZE_DEPS \
     && curl -sL https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     && composer global require hirak/prestissimo \
+    && composer global friendsofphp/php-cs-fixer \
+    && composer global phpstan/phpstan \
     && printf "\n" | pecl install ev-beta \
     && pecl install inotify \
     && pecl install redis-3.1.0 \
@@ -50,5 +52,8 @@ opcache.fast_shutdown=1\n\
         /usr/share/man \
         /usr/share/doc \
         /var/cache/apk/*
+        
+ENV COMPOSER_BIN_PATH=`composer global config bin-dir --absolute` \
+    PATH="$PATH:$COMPOSER_BIN_PATH"
 
 CMD ["php", "-a"]
