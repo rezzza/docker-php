@@ -53,6 +53,6 @@ opcache.fast_shutdown=1\n\
         /usr/share/doc \
         /var/cache/apk/*
 
-ENV PATH "$PATH:~/.composer/vendor/bin"
+ENV PATH "$PATH:/root/.composer/vendor/bin"
 
 CMD ["php", "-a"]
