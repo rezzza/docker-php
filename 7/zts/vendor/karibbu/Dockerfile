@@ -29,7 +29,7 @@ opcache.fast_shutdown=1\n\
     && docker-php-source extract \
     && apk add --no-cache git \
     && apk add --no-cache --virtual .phpize-deps $PHPIZE_DEPS \
-    && curl -sL https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+    && curl -sL https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=1.3.1 \
     && composer global require hirak/prestissimo:0.3.5 \
     && composer global require friendsofphp/php-cs-fixer:2.0.0 \
     && composer global require phpstan/phpstan:0.5.2 \
