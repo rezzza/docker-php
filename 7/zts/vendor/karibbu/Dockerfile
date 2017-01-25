@@ -33,7 +33,6 @@ opcache.fast_shutdown=1\n\
     && composer global require hirak/prestissimo:0.3.5 \
     && composer global require friendsofphp/php-cs-fixer:2.0.0 \
     && composer global require phpstan/phpstan:0.5.2 \
-    && printf "\n" | pecl install ev-beta \
     && pecl install inotify \
     && pecl install redis-3.1.0 \
     && docker-php-ext-enable --ini-name 100-redis.ini redis \
