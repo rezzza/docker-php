@@ -33,6 +33,8 @@ opcache.fast_shutdown=1\n\
     && composer global require hirak/prestissimo:0.3.5 \
     && composer global require friendsofphp/php-cs-fixer:2.0.0 \
     && composer global require phpstan/phpstan:0.5.2 \
+    && printf "\n" | pecl install apcu_bc-1.0.3 \
+    && docker-php-ext-enable --ini-name 100-apc.ini apcu apc \
     && pecl install redis-3.1.0 \
     && docker-php-ext-enable --ini-name 100-redis.ini redis \
     && pecl install ds-1.1.6 \
