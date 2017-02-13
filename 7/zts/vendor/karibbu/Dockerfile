@@ -1,4 +1,4 @@
-FROM php:7.0-zts-alpine
+FROM php:7.0.15-zts-alpine
 
 MAINTAINER Sébastien HOUZÉ <sebastien.houze@verylastroom.com>
 
@@ -29,15 +29,15 @@ opcache.fast_shutdown=1\n\
     && docker-php-source extract \
     && apk add --no-cache git \
     && apk add --no-cache --virtual .phpize-deps $PHPIZE_DEPS \
-    && curl -sL https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=1.3.1 \
+    && curl -sL https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=1.3.2 \
     && composer global require hirak/prestissimo:0.3.5 \
     && composer global require friendsofphp/php-cs-fixer:2.0.0 \
-    && composer global require phpstan/phpstan:0.5.2 \
+    && composer global require phpstan/phpstan:0.6.3 \
     && printf "\n" | pecl install apcu_bc-1.0.3 \
     && docker-php-ext-enable --ini-name 100-apc.ini apcu apc \
-    && pecl install redis-3.1.0 \
+    && pecl install redis-3.1.1 \
     && docker-php-ext-enable --ini-name 100-redis.ini redis \
-    && pecl install ds-1.1.6 \
+    && pecl install ds-1.1.7 \
     && docker-php-ext-enable --ini-name 100-ds.ini ds \
     && apk del --no-cache .phpize-deps \
     && apk del --no-cache zlib-dev icu-dev curl-dev binutils \
