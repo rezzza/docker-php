@@ -31,7 +31,7 @@ opcache.fast_shutdown=1\n\
     && apk add --no-cache --virtual .phpize-deps $PHPIZE_DEPS \
     && curl -sL https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=1.3.2 \
     && composer global require hirak/prestissimo:0.3.5 \
-    && composer global require friendsofphp/php-cs-fixer:2.0.0 \
+    && composer global require friendsofphp/php-cs-fixer:2.1.0 \
     && composer global require phpstan/phpstan:0.6.3 \
     && printf "\n" | pecl install apcu_bc-1.0.3 \
     && docker-php-ext-enable --ini-name 100-apc.ini apcu apc \
