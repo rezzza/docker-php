@@ -37,6 +37,13 @@ opcache.fast_shutdown=1\n\
     && docker-php-ext-enable --ini-name 100-apc.ini apcu apc \
     && pecl install redis-3.1.1 \
     && docker-php-ext-enable --ini-name 100-redis.ini redis \
+    && pecl install raphf-2.0.0 \
+    && docker-php-ext-enable --ini-name 100-raphf.ini raphf \
+    && echo -e "@edge http://nl.alpinelinux.org/alpine/edge/main\n@edge http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
+    && apk update --no-cache \
+    && apk add --no-cache rabbitmq-c-dev@edge curl@edge libssh2@edge curl-dev@edge \
+    && pecl install amqp-1.7.1 \
+    && docker-php-ext-enable --ini-name 100-amqp.ini amqp \
     && pecl install ds-1.1.7 \
     && docker-php-ext-enable --ini-name 100-ds.ini ds \
     && apk del --no-cache .phpize-deps \
