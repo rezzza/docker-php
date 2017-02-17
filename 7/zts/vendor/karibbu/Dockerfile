@@ -42,7 +42,7 @@ opcache.fast_shutdown=1\n\
     && echo -e "@edge http://nl.alpinelinux.org/alpine/edge/main\n@edge http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
     && apk update --no-cache \
     && apk add --no-cache rabbitmq-c-dev@edge curl@edge libssh2@edge curl-dev@edge \
-    && pecl install amqp-1.8.0beta2 \
+    && pecl install amqp-1.8.0 \
     && docker-php-ext-enable --ini-name 100-amqp.ini amqp \
     && pecl install ds-1.1.7 \
     && docker-php-ext-enable --ini-name 100-ds.ini ds \
