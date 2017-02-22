@@ -1,4 +1,4 @@
-FROM php:7.1.1-zts-alpine
+FROM php:7.1.2-zts-alpine
 
 MAINTAINER Sébastien HOUZÉ <sebastien.houze@verylastroom.com>
 
@@ -32,7 +32,7 @@ opcache.fast_shutdown=1\n\
     && curl -sL https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=1.3.2 \
     && composer global require hirak/prestissimo:0.3.5 \
     && composer global require friendsofphp/php-cs-fixer:2.1.0 \
-    && composer global require phpstan/phpstan:0.6.3 \
+    && composer global require phpstan/phpstan:0.6.4 \
     && printf "\n" | pecl install apcu_bc-1.0.3 \
     && docker-php-ext-enable --ini-name 100-apc.ini apcu apc \
     && pecl install redis-3.1.1 \
