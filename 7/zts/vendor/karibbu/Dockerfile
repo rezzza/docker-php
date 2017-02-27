@@ -52,6 +52,7 @@ opcache.fast_shutdown=1\n\
     && apk add --no-cache icu \
     && docker-php-source delete \
     && apk add --no-cache make \
+    && apk add --no-cache coreutils \
     && php -m \
     && rm -rf \
         ~/.composer/cache \
