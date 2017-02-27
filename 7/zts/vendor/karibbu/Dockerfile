@@ -8,6 +8,7 @@ request_order=GP\n\
 expose_php=Off\n\
 enable_dl=Off\n\
 short_open_tag=Off\n\
+zend.assertions=-1\n\
 " > /usr/local/etc/php/php.ini \
     && docker-php-ext-enable --ini-name 00-opcache.ini opcache \
     && sed -i -e 's/extension=/zend_extension=/' /usr/local/etc/php/conf.d/00-opcache.ini \
@@ -17,7 +18,7 @@ opcache.enable_file_override=1\n\
 opcache.log_verbosity_level=0\n\
 opcache.fast_shutdown=1\n\
 " >> /usr/local/etc/php/conf.d/00-opcache.ini \
-    && apk add --no-cache zlib-dev icu-dev curl-dev binutils \
+    && apk add --no-cache zlib-dev icu-dev curl-dev binutils coreutils \
     && docker-php-ext-install \
         intl \
         curl \
