@@ -8,6 +8,7 @@ request_order=GP\n\
 expose_php=Off\n\
 enable_dl=Off\n\
 short_open_tag=Off\n\
+zend.assertions=-1\n\
 " > /usr/local/etc/php/php.ini \
     && docker-php-ext-enable --ini-name 00-opcache.ini opcache \
     && sed -i -e 's/extension=/zend_extension=/' /usr/local/etc/php/conf.d/00-opcache.ini \
@@ -51,6 +52,7 @@ opcache.fast_shutdown=1\n\
     && apk add --no-cache icu \
     && docker-php-source delete \
     && apk add --no-cache make \
+    && apk add --no-cache coreutils \
     && php -m \
     && rm -rf \
         ~/.composer/cache \
