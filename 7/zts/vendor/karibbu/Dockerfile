@@ -18,7 +18,7 @@ opcache.enable_file_override=1\n\
 opcache.log_verbosity_level=0\n\
 opcache.fast_shutdown=1\n\
 " >> /usr/local/etc/php/conf.d/00-opcache.ini \
-    && apk add --no-cache zlib-dev icu-dev curl-dev binutils coreutils \
+    && apk add --no-cache zlib-dev icu-dev curl-dev binutils linux-headers \
     && docker-php-ext-install \
         intl \
         curl \
@@ -47,8 +47,10 @@ opcache.fast_shutdown=1\n\
     && docker-php-ext-enable --ini-name 100-amqp.ini amqp \
     && pecl install ds-1.1.7 \
     && docker-php-ext-enable --ini-name 100-ds.ini ds \
+    && pecl install swoole-2.0.6 \
+    && docker-php-ext-enable --ini-name 100-swoole.ini swoole \
     && apk del --no-cache .phpize-deps \
-    && apk del --no-cache zlib-dev icu-dev curl-dev binutils \
+    && apk del --no-cache zlib-dev icu-dev curl-dev binutils linux-headers \
     && apk add --no-cache icu \
     && docker-php-source delete \
     && apk add --no-cache make \
