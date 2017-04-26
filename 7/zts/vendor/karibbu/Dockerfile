@@ -1,13 +1,12 @@
-FROM php:7.1.3-zts-alpine
+FROM php:7.1.4-zts-alpine
 
 ENV COMPOSER_VERSION=1.4.1 \
-    PRESTISSIMO_VERSION=0.3.5 \
-    PHPCSFIXER_VERSION=2.1.2 \
+    PRESTISSIMO_VERSION=0.3.6 \
+    PHPCSFIXER_VERSION=2.3.1 \
     PHPSTAN_VERSION=0.6.4 \
     APCUBC_VERSION=1.0.3 \
-    REDIS_VERSION=3.1.1 \
     RAPHF_VERSION=2.0.0 \
-    DS_VERSION=1.1.7 \
+    DS_VERSION=1.1.8 \
     AMQP_VERSION=1.9.0 \
     SWOOLE_VERSION=2.0.7
 
@@ -47,8 +46,6 @@ opcache.fast_shutdown=1\n\
     && composer global require phpstan/phpstan:$PHPSTAN_VERSION \
     && printf "\n" | pecl install apcu_bc-$APCUBC_VERSION \
     && docker-php-ext-enable --ini-name 100-apc.ini apcu apc \
-    && pecl install redis-$REDIS_VERSION \
-    && docker-php-ext-enable --ini-name 100-redis.ini redis \
     && pecl install raphf-$RAPHF_VERSION \
     && docker-php-ext-enable --ini-name 100-raphf.ini raphf \
     && echo -e "@edge http://nl.alpinelinux.org/alpine/edge/main\n@edge http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
